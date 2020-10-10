@@ -1,9 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:include="head"> </div>
 <head >
-
     <style>
-
     video#bgvid {
     position: fixed;
     right: 0;
@@ -27,9 +25,7 @@
     .animated-typeing{border-right:2px #FFF solid;animation:typeing 1s infinite linear}
     .bg-gray{background:#fbfbfb}
     .bg-gray{padding-bottom:60px}.bg-gray{width:100%;padding-top:60px;position:relative}.bg-gray{background:#fbfbfb}
-
     </style>
-
     <title>吉比特的主页</title>
 </head>
 <body class="body-white">
@@ -68,11 +64,11 @@
  <div id="js-fullscreen" >
      <div >
          <video autoplay loop poster="../img/home/home.png" id="bgvid">
-             <source src="../mp4/home.mp4" type="video/mp4" >
+             <source th:src="@{/mp4/home.mp4}" type="video/mp4" >
          </video>
      </div>
      <div class="title" style="top: 170px">
-         <img src="../img/home/tansuo.png" alt="" class="img-responsive center-block" />
+         <img th:src="@{/img/home/tansuo.png}" alt="" class="img-responsive center-block" />
          <span class="animated-typeing title-sub">EXPLORE SHARE CHANGE</span>
      </div>
 
