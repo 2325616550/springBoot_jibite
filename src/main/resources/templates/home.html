@@ -1,5 +1,5 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:include="head"> </div>
+<div th:include="common/head"> </div>
 <head >
     <style>
     video#bgvid {
@@ -10,7 +10,7 @@
     min-height: 100%;
     width: 100%;
     height: 100%;
-    background: url('../img/home/home.png') no-repeat;
+    background: url('static/img/home/home.png') no-repeat;
     background-size: cover;
     }
     .media-icon{min-width:120px;background-position:center!important;min-height:120px;background-size:contain!important;background-repeat:no-repeat!important;margin-top:15px;margin-bottom:15px}
@@ -29,46 +29,17 @@
     <title>吉比特的主页</title>
 </head>
 <body class="body-white">
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="row "  >
-        <div class="col-md-8">
-            <div class="nav navbar-header">
-                <a  class="navbar-brand" href="home">吉比特的网</a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar1,#navBar2,#navBar3">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navBar1">
-                <ul class="nav nav-pills"  >
-                    <li role="presentation" style="top: 5px"><a href="index">主页</a></li>
-                    <li role="presentation" style="top: 5px"><a href="myInfo">了解我</a></li>
-                    <li role="presentation" style="top: 5px"><a href="about">关于</a></li>
-                    <li role="presentation" style="top: 5px"><a href="qustionnaire">问卷调查</a></li>
-                    <li role="presentation"  class="navbar-right" style="top: 5px"><a href="login">登录</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div  class="collapse navbar-collapse" id="navBar2">
-                <div class="header-sign-up" ><a href="regist" class="btn btn-success ref-signup ">注册</a></div>
-            </div>
-        </div>
-        <div class="col-md-2">      <div  class="collapse navbar-collapse" id="navBar3"><p class="navbar-text" id="test"></p></div>
-        </div>
-    </div>
-</div>
+<div th:include="common/commonNavbar"> </div>
 
 <!-- start of fullscreen video -->
  <div id="js-fullscreen" >
      <div >
-         <video autoplay loop poster="../img/home/home.png" id="bgvid">
-             <source th:src="@{/mp4/home.mp4}" type="video/mp4" >
+         <video autoplay loop poster="static/img/home/home.png" id="bgvid">
+             <source th:src="@{static/mp4/home.mp4}" type="video/mp4" >
          </video>
      </div>
      <div class="title" style="top: 170px">
-         <img th:src="@{/img/home/tansuo.png}" alt="" class="img-responsive center-block" />
+         <img th:src="@{static/img/home/tansuo.png}" alt="" class="img-responsive center-block" />
          <span class="animated-typeing title-sub">EXPLORE SHARE CHANGE</span>
      </div>
 
@@ -91,21 +62,21 @@
          <div class="row media-link">
              <div class="col-sm-3 col-xs-6">
                  <a href="regist">
-                     <div alt="" class="center-block media-icon" style="background:url('../img/home/regist.jpg');">
+                     <div alt="" class="center-block media-icon" style="background:url('static/img/home/regist.jpg');">
                      </div>
                      <div class="text-center media-text"> <span>注册</span> </div>
                  </a>
              </div>
              <div class="col-sm-3 col-xs-6">
                  <a href="login">
-                     <div alt="" class="center-block media-icon" style="background:url('../img/home/login.jpg');">
+                     <div alt="" class="center-block media-icon" style="background:url('static/img/home/login.jpg');">
                      </div>
                      <div class="text-center media-text">登录</div>
                  </a>
              </div>
              <div class="col-sm-3 col-xs-6">
                  <a href="index">
-                     <div alt="" class="center-block media-icon" style="background:url('../img/home/homepage.jpg');">
+                     <div alt="" class="center-block media-icon" style="background:url('static/img/home/homepage.jpg');">
                      </div>
                      <div class="text-center media-text">主页</div>
                  </a>

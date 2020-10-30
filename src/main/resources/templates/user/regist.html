@@ -1,12 +1,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:include="head"> </div>
+<div th:include="common/head"> </div>
 <head >
     <title>注册</title>
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="static/css/login.css">
     <script  th:inline="javascript" type="text/javascript">
         $(function(){
+
+            // 给验证码的图片，绑定单击事件
+            $("#code_img").click(function () {
+                this.src = "loginimage?d=" + Math.random();
+            });
+
             $("#signup").click(function () {
-                var usernameText =$("#username").val();
+                var usernameText =$("#name").val();
                 var usernamePatt = /^\w{5,12}$/;
                 var flag=true;
 
@@ -44,36 +50,7 @@
     </script>
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="row "  >
-        <div class="col-md-8">
-            <div class="nav navbar-header">
-                <a  class="navbar-brand" href="home">吉比特的网</a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar1,#navBar2,#navBar3">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navBar1">
-                <ul class="nav nav-pills"  >
-                    <li role="presentation" style="top: 5px"><a href="index">主页</a></li>
-                    <li role="presentation" style="top: 5px"><a href="myInfo">了解我</a></li>
-                    <li role="presentation" style="top: 5px"><a href="about">关于</a></li>
-                    <li role="presentation" style="top: 5px"><a href="qustionnaire">问卷调查</a></li>
-                    <li role="presentation"  class="navbar-right" style="top: 5px"><a href="login">登录</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div  class="collapse navbar-collapse" id="navBar2">
-                <div class="header-sign-up" ><a href="regist" class="btn btn-success ref-signup ">注册</a></div>
-            </div>
-        </div>
-        <div class="col-md-2">      <div  class="collapse navbar-collapse" id="navBar3"><p class="navbar-text" id="test"></p></div>
-        </div>
-    </div>
-</div>
+<div th:include="common/commonNavbar"> </div>
 
 <!-- BEGIN LOGIN FORM -->
     <br>
@@ -91,18 +68,18 @@
             <div class="row m-0 pb-10 border-none">
                 <h2 class="pb-15 login-heading">注册属于你的专属用户</h2>
             </div>
-            <form method="post" class="form-horizontal" action="wait?msg=注册功能">
+            <form method="post" class="form-horizontal" action="registUser">
 
                 <div class="row m-0 border-none">
                     <div class="col-sm-6 login-input-container mb-5 p-0">
-                        <input id="username" name="username" type="text"  class="form-control login-input" required maxlength="50">
+                        <input id="name" name="name" type="text" th:value="${param.name}" class="form-control login-input" required maxlength="50">
                         <label class="login-input-label-fixed">账号</label>
                     </div>
                     <div class="col-sm-6"></div>
                 </div>
                 <div class="row m-0 border-none">
                     <div class="col-sm-6 login-input-container p-0">
-                        <input id="email" name="password" type="password" class="form-control login-input login-password" required maxlength="50">
+                        <input id="email" name="email" th:value="${param.email}" class="form-control login-input login-password" required maxlength="50">
                         <label class="login-input-label-fixed">邮箱</label>
                     </div>
                     <div class="col-sm-6"></div>
@@ -116,8 +93,18 @@
                 </div>
                 <div class="row m-0 border-none">
                     <div class="col-sm-6 login-input-container p-0">
-                        <input id="eqpassword" name="eqpassword" type="password" class="form-control login-input login-password" required maxlength="50">
+                        <input id="repwd" name="repwd" type="password" class="form-control login-input login-password" required maxlength="50">
                         <label class="login-input-label-fixed">确认密码</label>
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="row m-0 border-none">
+                    <div class="col-sm-3 login-input-container p-0">
+                        <input id="code" name="code"   class="form-control login-input login-input" required maxlength="4">
+                        <label class="login-input-label-fixed">验证码</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <img id="code_img" alt="验证码刷不出来蜡" src="loginimage" width="100%" >
                     </div>
                     <div class="col-sm-6"></div>
                 </div>

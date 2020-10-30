@@ -1,0 +1,157 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:include="common/head"> </div>
+<head >
+    <link rel="stylesheet" type="text/css" href="static/css/login.css">
+    <title>小功能</title>
+    <script>
+        function getValue() {
+            var lowLimit = $("#lowLimit").val();
+            var superLimit = $("#superLimit").val();
+
+
+            var isNumber = /^(?:0|\-?(?:0\.\d*[1-9]|[1-9]\d*(?:\.\d*[1-9])?))$/;
+
+            var isSpace =/^[^\s]*$/;
+
+            if ( !(isSpace.test(lowLimit)) || !(isSpace.test(superLimit)) ) {
+                $("#result").text("");
+                $("#result").text("不要带有空格哦！");
+                return false;
+            }
+            if ( !(isNumber.test(lowLimit)) || !(isNumber.test(superLimit)) ) {
+                $("#result").text("");
+                $("#result").text("请输入数字哦！");
+                return false;
+            }
+            if (  lowLimit == "" || superLimit == "") {
+                $("#result").text("");
+                $("#result").text("请输入完整哦！");
+                return false;
+            }
+            var low = parseFloat(lowLimit);
+            var Super = parseFloat(superLimit);
+            if (  low >= Super ) {
+                $("#result").text("");
+                $("#result").text("请输入正确的积分上下限哦！");
+                return false;
+            }
+                var parm = $("#myform1").serializeArray();
+                $.ajax({
+                    url: "integration",
+                    type: "post",
+                    dataType: "json",
+                    data: {"parm": JSON.stringify(parm)},
+                    success: function (data) {
+                        $("#result").text("");
+                        $("#result").text("结果是" + data);
+                    }
+                })
+        }
+        function restart() {
+            $("#game2").html("<br><br><br><br>\n" +
+                "    <button type=\"button\" id=\"idstart\" onclick=\"show()\" class=\"btn btn-lg btn-login pull-left width-80 height-68\" style=\"background-color:#00a7f5;\">点我开始玩猜数!</button>");
+        }
+        function show() {
+            $.ajax({
+                url: "setNumber",
+                success: function () {
+                    $("#game2").html("<br><br><center><div class='col-sm-2 '></div><div col-sm-6 class=\" col-sm-8  login-input-container p-0\"><input id=\"correct\" name=\"correct\" style='text-align: center' class=\"form-control login-input login-password\" required maxlength=\"4\">\n" +
+                        "<label class=\"login-input-label-fixed\" style='font-size: 20px'>输入要猜的4位数</label><br><button type=\"button\" id=\"gamestart\" onclick='getResult()' class=\"btn btn-lg btn-login width-30 height-34\" style=\"background-color:#37cf7d;\">确认</button></div><br><br><br><br><br><br><br><h2 id=\"msg\"></h2></center>");
+                }
+            })
+        }
+        function getResult(){
+            var input = $("#correct").val();
+
+            var isNumber = /^[0-9]*$/;
+
+            var isFour = /^.{4,}$/;
+
+            $("#msg").text("");
+
+            if ( !(isNumber.test(input))) {
+                $("#msg").text("");
+                $("#msg").text("请输入数字哦！");
+                return false;
+            }
+
+            if ( !(isFour.test(input))) {
+                $("#msg").text("");
+                $("#msg").text("请输入四位数哦！");
+                return false;
+            }
+
+            $.ajax({
+                url:"isCorrect",
+                data:{"input":input},
+                type:"post",
+                success: function (data) {
+                    //全部猜中 就可以重新开始游戏
+                    if (data[0]==4) {
+                        $("#showResult").html(data[0] + "A " + data[1] + "B  你赢了!!" + "<br>" + "总共猜了" + data[2] + "次" );
+                        //data-dismiss="modal" 表示关闭模态窗口
+                        $("#footer").html("<button type=\"button\" onclick='restart()' class=\"btn btn-primary\" id=\"replay\" data-dismiss=\"modal\">再来一局</button>")
+
+                    }else{
+                        $("#showResult").html(data[0] + "A" + data[1] + "B");
+                        //data-dismiss="modal" 表示关闭模态窗口
+                        $("#footer").html("<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">关闭</button>")
+                    }
+                    //以上信息处理完毕后，将展示结果的模态窗口打开
+                    $("#editRemarkModal").modal("show");
+                }
+            })
+        }
+        $(function () {
+            $("#startgame1").click(function () {
+                $("#game1").html("<br><br><br><center><div class=\"col-sm-offset-2 \">\n" +
+                    "<h3 style=\"color: #0e6553\">求y=x*e^-x在区间[a,b]的定积分值</h3></div><br><form id=\"myform1\" class=\"form-horizontal\">\n" +
+                    "<div class=\"form-group\"><label for=\"lowLimit\" class=\"col-sm-3 control-label\">a</label><div class=\"col-sm-7\"><input name=\"lowLimit\" class=\"form-control\" id=\"lowLimit\" placeholder=\"积分下限\">\n" +
+                    "</div></div><div class=\"form-group\"><label for=\"superLimit\" class=\"col-sm-3 control-label\">b</label><div class=\"col-sm-7\">\n" +
+                    "<input  name=\"superLimit\" class=\"form-control\" id=\"superLimit\" placeholder=\"积分上限\"></div></div><div class=\"form-group\">\n" +
+                    "<div class=\"col-sm-offset-3 col-sm-7\"><button type=\"button\" id=\"djBtn\" onclick='getValue()'   class=\"btn btn-lg btn-login \"  style=\"width: 100%;background: #439ceb\">确定</centerbutton>\n" +
+                    "</div></div></form><div class=\"media-title text-center\"><h2 id=\"result\"></h2></div></center>");
+            })
+        })
+    </script>
+<head>
+<body style="background: #fafafa">
+<div class="container">
+    <div th:include="common/commonNavbar"> </div>
+    <center>
+<div class="modal fade" id="editRemarkModal" role="dialog"  data-backdrop="static" >
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <center>游戏结果</h1></center>
+            </div>
+            <div class="modal-body">
+                <center><h1 id="showResult"></h1></center>
+            </div>
+            <div class="modal-footer" id="footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </center>
+<br><br><br><br><br><br><br><br>
+<div class="col-sm-6" id="game1" >
+    <br><br><br><br><br><br><br><br>
+    <center>
+     <button type="button" id="startgame1"  class="btn btn-lg btn-login  width-80 height-68" style="background-color:#d18d00;">点我开始算积分！</button>
+    </center>
+ </div>
+<br><br><br><br>
+<div class="col-sm-6" id="game2" >
+    <br><br><br><br>
+    <center>
+    <button type="button" id="idstart" onclick="show()" class="btn btn-lg btn-login width-80 height-68" style="background-color:#00a7f5;">点我开始玩猜数!</button>
+    </center>
+</div>
+
+<script >
+    init();
+    snow();
+</script>
+</div>
+</body>
