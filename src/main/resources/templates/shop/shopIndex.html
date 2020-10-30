@@ -1,0 +1,98 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:include="common/head"> </div>
+<head>
+    <meta charset="UTF-8">
+    <title>吉比特的商城</title>
+    <style>
+        .b_list{
+            height:450px;
+            width:30%;
+            margin:20px;
+            margin-top:0px;
+            margin-bottom:0px;
+            float: left;
+            border: 1px #e3e3e3 solid;
+        }
+        .img_div{
+            height: 300px;
+            text-align: center;
+        }
+
+        .book_img {
+            height:300px;
+        }
+        .book_info {
+
+        }
+        .book_info div{
+            height: 22px;
+            width: 300px;
+
+        }
+    </style>
+</head>
+<body>
+<div th:include="common/commonNavbar"> </div>
+<br><br><br><br>
+<center>
+<h1 style="color: #439ceb">吉比特的线上商城<small>测试版</small></h1>
+<br><br>
+<div class="row" >
+<div th:each="book,bookStat:${bookList}">
+    <div class="b_list">
+        <div class="img_div">
+            <img class="book_img" alt="" th:src="${book.imgPath}" />
+        </div>
+        <div class="book_info">
+            <div class="book_name" th:text="'书名:' + ${book.name}">
+<!--                <center>-->
+<!--                <span >书名:</span>-->
+<!--                <span th:text="${book.name}"></span>-->
+<!--                </center>-->
+            </div>
+            <div class="book_author">
+                <span >作者:</span>
+                <span  th:text="${book.author}"></span>
+            </div>
+            <div class="book_price">
+                <span >价格:</span>
+                <span  th:text="'￥' + ${book.price}">￥</span>
+            </div>
+            <div class="book_sales">
+                <span >销量:</span>
+                <span  th:text="${book.sales}"></span>
+            </div>
+            <div class="book_amount">
+                <span >库存:</span>
+                <span th:text="${book.stock}"></span>
+            </div>
+            <div class="book_add">
+                <button bookId="${book.id}"  style="color: #f5646e">加入购物车</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br><br>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+</center>
+</body>
+</html>

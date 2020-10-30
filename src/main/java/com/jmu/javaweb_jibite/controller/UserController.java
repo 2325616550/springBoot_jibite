@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 
 import com.google.code.kaptcha.Producer;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;

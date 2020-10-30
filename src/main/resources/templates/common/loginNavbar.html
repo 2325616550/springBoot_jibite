@@ -16,6 +16,7 @@
                     <li role="presentation" id="about" class="" style="top: 5px"><a href="about">关于</a></li>
                     <li role="presentation" id="qustionnaire" style="top: 5px"><a href="qustionnaire">问卷调查</a></li>
                     <li role="presentation" id="smallFeature" style="top: 5px"><a href="smallFeature">小功能</a></li>
+                    <li role="presentation" id="shopIndex" style="top: 5px"><a href="shopIndex">吉比特的商城</a></li>
                 </ul>
             </div>
         </div>
@@ -27,8 +28,8 @@
         <div class="col-md-2">
             <div class="collapse navbar-collapse" id="navBar3">
                 <div class="dropdown" style="top: 8px">
-                    <button id="dLabel" style="width: 60%" type="button" class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text=" ' 用户: ' +${session.name} ">
-                        <span class="caret"></span>
+                    <button id="dLabel" style="width: 60%" type="button" class="btn btn-primary  " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  th:text=" ' 用户: ' +${session.name}">
+                        <span class="caret" ></span>
                     </button>
                     <ul class="dropdown-menu"  aria-labelledby="dLabel">
                         <li> <a href="signOut" >sign out </a></li>

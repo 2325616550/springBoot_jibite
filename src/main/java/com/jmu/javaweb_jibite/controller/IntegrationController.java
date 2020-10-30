@@ -44,17 +44,17 @@ public class IntegrationController {
                 String valueOfB = map.get("value");
                 b=Double.parseDouble(valueOfB);
                 double eps = 0.0001;
-                int n = 512;   //初始分割一个大梯形
+                int n = 512;   //初始分割
                 double step = (b - a) / n;
                 double s1,s2,diff;
                 s1=0.0;
                 for (int i = 0; i < n; i++)
                 {
-                        s1 += func(a + step * i)*step;   //计算初始梯形的面积
+                        s1 += func(a + step * i)*step;   //计算初始面积
                 }
                 do
                 {
-                        n = 2 * n;    //梯形分割加倍
+                        n = 2 * n;    //分割加倍
                         s2=s1/2;
                         step = (b - a) / n;
                         for (int i = 1; i < n; i+=2) {

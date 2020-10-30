@@ -66,7 +66,7 @@ public class MyFilter implements Filter {
             }
         }
         //如未登录 这些网页不能浏览
-            if (uri.indexOf("myInfo") != -1 || uri.indexOf("smallFeature") != -1 || uri.indexOf("questionnaire") != -1  )
+            if (uri.indexOf("myInfo") != -1 || uri.indexOf("smallFeature") != -1 || uri.indexOf("questionnaire") != -1 || uri.indexOf("shopIndex") != -1   )
                 haveQuality = false;
         //如登录，则登录页面不能浏览
         if(flag==true){

@@ -1,7 +1,12 @@
 package com.jmu.javaweb_jibite.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.awt.print.Book;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ShaoJ
@@ -59,4 +64,5 @@ public class PageController {
     public String remind() {
         return "user/remind";
     }
+
 }
